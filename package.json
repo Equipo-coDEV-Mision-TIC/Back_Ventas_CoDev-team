@@ -1,0 +1,8 @@
+{
+  "name": "back-ventas-codev-team",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Equipo-coDEV-Mision-TIC/Back_Ventas_CoDev-team.git",
+  "author": "Yeison Buitrago <yeison_buitragos@hotmail.com>",
+  "license": "MIT"
+}
