@@ -1,9 +1,11 @@
 // const express = require('express') forma tradicional de importar express pero actualmente la tendencia es:
 
 import Express from "express"
+import Cors from 'cors'
 
 const app = Express()
 app.use(Express.json())
+app.use(Cors())
 
 
 app.get('/Productos',(req,res)=>{
@@ -40,6 +42,7 @@ app.post('/Productos/nuevo',(req,res)=>{
         }
         console.log("Producto a crear: ",req.body)
         console.log('Producto creado con exito')
+        
     })
 
 // fin post
