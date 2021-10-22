@@ -5,7 +5,14 @@
   "repository": "https://github.com/Equipo-coDEV-Mision-TIC/Back_Ventas_CoDev-team.git",
   "author": "Yeison Buitrago <yeison_buitragos@hotmail.com>",
   "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon servidor.js"
+  },
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
   }
 }
