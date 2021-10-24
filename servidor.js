@@ -18,7 +18,17 @@ app.get('/Productos',(req,res)=>{
             Categoria: "Sillas Oficina",
             Descripción: "Silla Gerente Reclinable",
             Precio: "950000",   
-        }]
+        },
+        {
+            IDproducto: "1001",Categoria: "Sofás",Descripción: "sofa reclinable cuerina",Precio: "1100000",
+        },
+        {
+            IDproducto: "1001",Categoria: "Sofás",Descripción: "sofa reclinable cuerina",Precio: "1100000",
+        },
+        {
+            IDproducto: "1001",Categoria: "Sofás",Descripción: "sofa reclinable cuerina",Precio: "1100000",
+        }   
+    ]
     console.log('Alguien hizo get en la ruta /Productos')
     res.send(productos)
 })
