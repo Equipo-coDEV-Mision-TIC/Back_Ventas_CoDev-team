@@ -39,4 +39,11 @@ const editarProducto = async (edicion, callback)=>{
   .collection('Articulo').findOneAndUpdate(filtroArticulo,operacion,{upsert:true},callback)  
 }
 
-export {queryAllProducts, crearProducto, editarProducto}
+const eliminarProducto = async (id, callback)=>{
+    const filtroArticulo ={ _id: new ObjectId(id)}
+    const baseDeDatos = getBD();
+    await baseDeDatos
+    .collection('Articulo').deleteOne(filtroArticulo,callback) 
+}
+
+export {queryAllProducts, crearProducto, editarProducto, eliminarProducto}
