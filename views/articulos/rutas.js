@@ -20,16 +20,16 @@ rutasProductos.route('/Productos').get((req,res)=>{
 })
 
 // comunicacion completa desde el front hasta el back para crear productos
-rutasProductos.route('/Productos/nuevo').post((req,res)=>{
+rutasProductos.route('/Productos').post((req,res)=>{
     crearProducto(req.body, genercCallback(res))
     })
 
-rutasProductos.route('/Productos/editar').patch((req,res)=>{
-  editarProducto(req.body, genercCallback(res))
+rutasProductos.route('/Productos/:id').patch((req,res)=>{
+  editarProducto(req.params.id,req.body, genercCallback(res))
 })
 
-rutasProductos.route('/Productos/Eliminar').delete((req,res)=>{
-  eliminarProducto(req.body.id, genercCallback(res))  
+rutasProductos.route('/Productos/:id').delete((req,res)=>{
+  eliminarProducto(req.params.id, genercCallback(res))  
 })
 
 export default rutasProductos
