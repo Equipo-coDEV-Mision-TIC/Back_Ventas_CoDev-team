@@ -2,15 +2,16 @@
 
 import Express from "express"
 import Cors from 'cors'
-import {MongoClient,ObjectId} from 'mongodb'
+
 import dotenv from 'dotenv'
+import { conectarBD, getBD } from "./db/db.js"
+
 
 dotenv.config({path:'./.env'})
 
-const uri = process.env.DATABASE_URL; //process.env.PORT --> buena practica
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-let conexion;
+
+
 const app = Express()
 app.use(Express.json())
 app.use(Cors())
@@ -18,7 +19,8 @@ app.use(Cors())
 
 app.get('/Productos',(req,res)=>{
     console.log('Alguien hizo get en la ruta /Productos')
-    conexion
+    const baseDeDatos = getBD();
+    baseDeDatos
     .collection('Articulo')
     .find({}).limit(50)
     .toArray((err,result)=>{
@@ -42,7 +44,8 @@ app.post('/Productos/nuevo',(req,res)=>{
             Object.keys(datosProducto).includes('Descripcion')&&
             Object.keys(datosProducto).includes('Precio')  
         ){
-            conexion.collection('Articulo').insertOne(datosProducto,(err,result)=>{
+            const baseDeDatos = getBD();
+            baseDeDatos.collection('Articulo').insertOne(datosProducto,(err,result)=>{
                 if(err){
                     console.error(err)
                     res.sendStatus(500);
@@ -68,7 +71,8 @@ app.patch('/Productos/editar',(req,res)=>{
   const operacion = {
       $set: edicion,
   }
-  conexion.collection('Articulo').findOneAndUpdate(filtroArticulo,operacion,{upsert:true},(err,result)=>{
+  const baseDeDatos = getBD();
+  baseDeDatos.collection('Articulo').findOneAndUpdate(filtroArticulo,operacion,{upsert:true},(err,result)=>{
     if(err){
         console.error('Error actualizando el Articulo: ',err)
         res.sendStatus(500)
@@ -82,7 +86,8 @@ app.patch('/Productos/editar',(req,res)=>{
 
 app.delete('/Productos/Eliminar',(req,res)=>{
     const filtroArticulo ={ _id: new ObjectId(req.body.id)}
-    conexion.collection('Articulo').deleteOne(filtroArticulo,(err,result)=>{
+    const baseDeDatos = getBD();
+    baseDeDatos.collection('Articulo').deleteOne(filtroArticulo,(err,result)=>{
         if(err){
             console.error('Error eliminando el Articulo: ',err)
             res.sendStatus(500)
@@ -94,15 +99,10 @@ app.delete('/Productos/Eliminar',(req,res)=>{
 })
 // fin post
 const main = ()=>{
-    client.connect((err, db) => {
-        if(err) {
-            console.error('Error conectando a la base de datos')
-        }
-        conexion = db.db('TiendaTech');
-        console.log('Conexion exitosa')
-        return app.listen(process.env.PORT,()=>{ //process.env.PORT --> buena practica
-            console.log(`escuchando puerto ${process.env.PORT}`) //process.env.PORT --> buena practica
-      });
-        })
+
+    return app.listen(process.env.PORT,()=>{ //process.env.PORT --> buena practica
+        console.log(`escuchando puerto ${process.env.PORT}`) //process.env.PORT --> buena practica
+  });
+    
 }
- main()
+ conectarBD(main)
