@@ -1,55 +1,28 @@
 import Express from 'express'
+import { queryAllProducts, crearProducto } from '../../controllers/productos/controllers.js';
 import { getBD } from "../../db/db.js"
 
 const rutasProductos = Express.Router();
 
+const genercCallback = (res) => (err, result) => {
+    if (err) {
+      console.log('error', err);
+      res.status(500).json({ error: err });
+    } else {
+      res.json(result);
+    }
+  };
 
 
 rutasProductos.route('/Productos').get((req,res)=>{
     console.log('Alguien hizo get en la ruta /Productos')
-    const baseDeDatos = getBD();
-    baseDeDatos
-    .collection('Articulo')
-    .find({}).limit(50)
-    .toArray((err,result)=>{
-        if(err){
-            res.status(500).send('Error consultando los Articulos')
-        }
-        else{
-            res.json(result);
-        }    
-    })
+    
+    queryAllProducts(genercCallback(res));
 })
 
 // comunicacion completa desde el front hasta el back para crear productos
 rutasProductos.route('/Productos/nuevo').post((req,res)=>{
-    const datosProducto = req.body;
-    //console.log('llaves: ', object.keys(datosProducto))
-    try{
-        if(
-            Object.keys(datosProducto).includes('IDproducto') &&
-            Object.keys(datosProducto).includes('Categoria') &&
-            Object.keys(datosProducto).includes('Descripcion')&&
-            Object.keys(datosProducto).includes('Precio')  
-        ){
-            const baseDeDatos = getBD();
-            baseDeDatos.collection('Articulo').insertOne(datosProducto,(err,result)=>{
-                if(err){
-                    console.error(err)
-                    res.sendStatus(500);
-                }else{
-                    console.log(result)
-                    res.sendStatus(200)
-                }  
-            })
-
-        }else{
-            res.sendStatus(500)
-        }
-        }catch{
-            res.sendStatus(500);
-        }
-        
+    crearProducto(req.body, genercCallback(res))
     })
 
 rutasProductos.route('/Productos/editar').patch((req,res)=>{

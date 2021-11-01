@@ -24,4 +24,4 @@ const main = ()=>{
   });
     
 }
- conectarBD(main);
+ conectarBD(main)
