@@ -1,5 +1,5 @@
 import Express from 'express'
-import { queryAllProducts, crearProducto } from '../../controllers/productos/controllers.js';
+import { queryAllProducts, crearProducto, editarProducto } from '../../controllers/productos/controllers.js';
 import { getBD } from "../../db/db.js"
 
 const rutasProductos = Express.Router();
@@ -26,23 +26,7 @@ rutasProductos.route('/Productos/nuevo').post((req,res)=>{
     })
 
 rutasProductos.route('/Productos/editar').patch((req,res)=>{
-  const edicion = req.body
-  const filtroArticulo ={ _id: new ObjectId(edicion.id)}
-  delete edicion.id
-  const operacion = {
-      $set: edicion,
-  }
-  const baseDeDatos = getBD();
-  baseDeDatos.collection('Articulo').findOneAndUpdate(filtroArticulo,operacion,{upsert:true},(err,result)=>{
-    if(err){
-        console.error('Error actualizando el Articulo: ',err)
-        res.sendStatus(500)
-    }else{
-        console.log('Articulo actualizado con exito')
-        res.sendStatus(200)
-    }
-    }
-  )  
+  editarProducto(req.body, genercCallback(res))
 })
 
 rutasProductos.route('/Productos/Eliminar').delete((req,res)=>{

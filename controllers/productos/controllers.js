@@ -1,4 +1,5 @@
 import { getBD } from "../../db/db.js"
+import { ObjectId } from "mongodb";
 
 const queryAllProducts = async (callback) =>{
 
@@ -27,4 +28,15 @@ const crearProducto = async (datosProducto, callback) =>{
         
 }
 
-export {queryAllProducts, crearProducto}
+const editarProducto = async (edicion, callback)=>{
+  const filtroArticulo ={ _id: new ObjectId(edicion.id)}
+  delete edicion.id
+  const operacion = {
+      $set: edicion,
+  }
+  const baseDeDatos = getBD();
+  await baseDeDatos
+  .collection('Articulo').findOneAndUpdate(filtroArticulo,operacion,{upsert:true},callback)  
+}
+
+export {queryAllProducts, crearProducto, editarProducto}
