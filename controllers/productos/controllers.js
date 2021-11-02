@@ -29,20 +29,20 @@ const crearProducto = async (datosProducto, callback) =>{
 }
 
 const editarProducto = async (id, edicion, callback)=>{
-  const filtroArticulo ={ _id: new ObjectId(id)}
+  const filtroProducto ={ _id: new ObjectId(id)}
   const operacion = {
       $set: edicion,
   }
   const baseDeDatos = getBD();
   await baseDeDatos
-  .collection('Articulo').findOneAndUpdate(filtroArticulo,operacion,{upsert:true},callback)  
+  .collection('Articulo').findOneAndUpdate(filtroProducto,operacion,{upsert:true},callback)  
 }
 
 const eliminarProducto = async (id, callback)=>{
-    const filtroArticulo ={ _id: new ObjectId(id)}
+    const filtroProducto ={ _id: new ObjectId(id)}
     const baseDeDatos = getBD();
     await baseDeDatos
-    .collection('Articulo').deleteOne(filtroArticulo,callback) 
+    .collection('Articulo').deleteOne(filtroProducto,callback) 
 }
 
 export {queryAllProducts, crearProducto, editarProducto, eliminarProducto}
