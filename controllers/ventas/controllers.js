@@ -13,10 +13,10 @@ const queryAllSale = async (callback) =>{
 const crearVenta = async (datosVenta, callback) =>{
 
         if(
-            Object.keys(datosVenta).includes('IDproducto') &&
-            Object.keys(datosVenta).includes('Categoria') &&
-            Object.keys(datosVenta).includes('Descripcion')&&
-            Object.keys(datosVenta).includes('Precio')  
+            Object.keys(datosVenta).includes('IDventa') &&
+            Object.keys(datosVenta).includes('Vendedor') &&
+            Object.keys(datosVenta).includes('Producto')&&
+            Object.keys(datosVenta).includes('Valor')  
         ){
             const baseDeDatos = getBD();
             await baseDeDatos

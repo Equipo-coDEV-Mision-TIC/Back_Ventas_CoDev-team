@@ -5,7 +5,7 @@ const queryAllUsers = async (callback) =>{
 
     const baseDeDatos = getBD();
     await baseDeDatos
-    .collection('Articulo')
+    .collection('Usuario')
     .find({}).limit(50)
     .toArray(callback)
 }
@@ -14,7 +14,7 @@ const crearUsuario = async (datosUsuario, callback) =>{
 
             const baseDeDatos = getBD();
             await baseDeDatos
-            .collection('Articulo').insertOne(datosUsuario, callback)
+            .collection('Usuario').insertOne(datosUsuario, callback)
         
 }
 
@@ -25,14 +25,14 @@ const editarUsuario = async (id, edicion, callback)=>{
   }
   const baseDeDatos = getBD();
   await baseDeDatos
-  .collection('Articulo').findOneAndUpdate(filtroUsuario,operacion,{upsert:true},callback)  
+  .collection('Usuario').findOneAndUpdate(filtroUsuario,operacion,{upsert:true},callback)  
 }
 
 const eliminarUsuario = async (id, callback)=>{
     const filtroUsuario ={ _id: new ObjectId(id)}
     const baseDeDatos = getBD();
     await baseDeDatos
-    .collection('Articulo').deleteOne(filtroUsuario,callback) 
+    .collection('Usuario').deleteOne(filtroUsuario,callback) 
 }
 
 export {queryAllUsers, crearUsuario, editarUsuario, eliminarUsuario}
