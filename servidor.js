@@ -27,7 +27,7 @@ var jwtCheck = jwt({
       rateLimit: true,
       jwksRequestsPerMinute: 5,
       jwksUri: 'https://ventas-misiontic.us.auth0.com/.well-known/jwks.json'
-}),heroku logs --tail
+}),
 audience: 'Api-Auth-TiendaTec',
 issuer: 'https://ventas-misiontic.us.auth0.com/',
 algorithms: ['RS256']
@@ -45,4 +45,4 @@ const main = ()=>{
   });
     
 }
- conectarBD(main);
+ conectarBD(main)
