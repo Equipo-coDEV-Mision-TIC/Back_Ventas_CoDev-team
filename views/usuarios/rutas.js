@@ -32,7 +32,7 @@ rutasUsuarios.route('/Usuarios').post((req,res)=>{
       // consultarUsuario(, genercCallback(res));
     });
     
-    rutasUsuarios.route('/usuarios/:id').get((req, res) => {
+    rutasUsuarios.route('/Usuarios/:id').get((req, res) => {
       console.log('alguien hizo get en la ruta /usuarios');
       consultarUsuario(req.params.id, genercCallback(res));
     });
