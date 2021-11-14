@@ -19,7 +19,9 @@ const PORT = process.env.PORT || 5000;
 
 const app = Express()
 app.use(Express.json())
-app.use(Cors())
+app.use(Cors({
+  origin:"https://polar-sea-28372.herokuapp.com"
+}))
 
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
@@ -45,4 +47,4 @@ const main = ()=>{
   });
     
 }
- conectarBD(main)
+ conectarBD(main);
