@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 5000;
 const app = Express()
 app.use(Express.json())
 app.use(Cors({
-  origin:"https://polar-sea-28372.herokuapp.com/Home"
+  //origin:"https://polar-sea-28372.herokuapp.com/Home"
 }))
 
 var jwtCheck = jwt({
